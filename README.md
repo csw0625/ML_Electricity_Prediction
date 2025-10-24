@@ -10,9 +10,12 @@
 ├── README.md
 ├── 발표자료.pdf
 └── notebooks/
-    ├── RandomForest.ipynb
-    ├── SVR.ipynb
-    └── XGBoost.ipynb ## Final prediction
+    ├── EDA1.ipynb
+    ├── EDA2.ipynb
+    ├── RandomForest_Per_type.ipynb
+    ├── XGBoost_Per_type.ipynb
+    ├── SVR_Per_building.ipynb
+    └── XGBoost_Per_building.ipynb ## Final prediction
 </pre>
 ---
 
@@ -27,3 +30,19 @@
 
 ### 2.1. 평가 지표
 - **SMAPE**: $$\frac{100}{n} \sum\limits^n \frac{|y_{\text{pred}} - y_{\text{real}}|}{\left(|y_{\text{pred}}|+|y_{\text{real}}|\right)/2}$$
+
+### 2.2. 분석 Flow
+- **EDA**: 상관계수, ACF/PACF, time-series decomposition의 유효성 검증, 이상치 확인
+- **전처리**: datetime type 변환, 파생변수 생성(시점관련, 기상관련), Min-Max normalization
+- **모델링**:
+  - Time-series split을 사용해 교차 검증
+  - Optuna tuning으로 최적 하이퍼파라미터 탐색
+  - 건물 유형별로 분석: Time-series decomposition에 기반한 linear 모델에서 한계를 발견하고 앙상블 모델 채택
+    1. RandomForest: 8.38%
+    2. XGBoost: 22.56%
+  - 건물별 분석: 같은 유형이라도 다른 양상을 보이는 건물에 대한 성능 향상을 위해 건물별 분석 시행
+    1. SVR: 9.30%
+    2. XGBoost: 7.97%
+
+---
+## 3. 결론
