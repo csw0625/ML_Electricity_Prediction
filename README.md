@@ -26,4 +26,4 @@
 ## 2. 분석
 
 ### 2.1. 평가 지표
-- **SMAPE**: $$ \frac{100}{n} \sum\limits^n \frac{|y_{\text{pred}} - y_{\text{real}}|}{|y_{\text{pred}}|+|y_{\text{real}}|} $$
+- **SMAPE**: $\frac{100}{n} \sum\limits^n \frac{|y_{\text{pred}} - y_{\text{real}}|}{|y_{\text{pred}}|+|y_{\text{real}}|}$
