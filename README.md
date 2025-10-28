@@ -26,12 +26,23 @@
   - 10개 유형 100개 건물의 전력소비량 데이터(1시간주기, ‘24.6.1～8.31), 기상데이터, 건물개요(면적, 태양광·ESS 용량 등)
   - 건물개요, 기상데이터, 시계열데이터 등 85일 분량의 train 데이터를 이용하여 8.24~8.31 각 건물별 전력사용량 예측
 
+<p align="center">
+    <img width="800" height="501" alt="Image" src="https://github.com/user-attachments/assets/5d80f153-ea9f-44a5-bd34-f2f3127fa5a1" />
+    <p align="center"><sub><em>전체 데이터 중 일부 그래프</em></sub></p>
+</p>
+
 ---
+
 ## 2. 분석
 
 ### 2.1. 평가 지표
-- **SMAPE**: $$\frac{100}{n} \sum\limits^n \frac{|y_{\text{pred}} - y_{\text{real}}|}{\left(|y_{\text{pred}}|+|y_{\text{real}}|\right)/2}$$
-
+- **SMAPE**:
+  
+<p align="center">
+    <img width="550" height="124" alt="Image" src="https://github.com/user-attachments/assets/44b5d964-a3a9-456b-883b-bcb90cafaf97" />
+    <p align="center"><sub><em>SMAPE 계산식</em></sub></p>
+</p>
+  
 ### 2.2. 분석 Flow
 - **EDA**: 상관계수, ACF/PACF, time-series decomposition의 유효성 검증, 이상치 확인
 - **전처리**: datetime type 변환, 파생변수 생성(시점관련, 기상관련), Min-Max normalization
@@ -44,9 +55,13 @@
   - 건물별 분석: 같은 유형이라도 다른 시계열 패턴을 보이는 건물에 대한 성능 향상을 위해 건물별 모델링 실행
     1. SVR: 9.30%
     2. XGBoost: 7.97%
-
-<img width="1990" height="1190" alt="Image" src="https://github.com/user-attachments/assets/31aaf7bf-25bf-42de-838f-a23f11218197" />
-
+  
+<p align="center">
+    <img width="1250" height="750" alt="Image" src="https://github.com/user-attachments/assets/31aaf7bf-25bf-42de-838f-a23f11218197" />
+    <sub><em>55번 건물의 train, val, test 데이터와 예측값(각 파랑, 노랑, 초록)</em></sub>
+    <sub><em> - RandomForest</em></sub>
+</p>
+  
 ---
 ## 3. 결론
 최종 모델:
