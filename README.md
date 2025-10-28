@@ -44,7 +44,12 @@
 </p>
   
 ### 2.2. 분석 Flow
-- **EDA**: 상관계수, ACF/PACF, time-series decomposition의 유효성 검증, 이상치 확인
+- **EDA**: 상관계수, ACF/PACF, time-series decomposition의 유효성 검증, 이상치 확인  
+  => 주기성을 가지는 건물 전력 사용량 변화와 일간-주간 주기성 효과의 교호작용을 반영하기 위해 $u = \left( \cos\theta, \sin\theta \right),\space v = ( \cos\theta', \sin\theta' )$의 외적을 파생변수로 설정  
+  <p align="center">
+      <img width="1931" height="855" alt="Image" src="https://github.com/user-attachments/assets/17118bde-d5c4-44df-8272-2651a978236f" />
+      <sub><em>일간 전력사용량 변화(좌), 주간 전력사용량 변화(우): 일간-주간 주기성 효과의 교호작용</em></sub>
+  </p>
 - **전처리**: datetime type 변환, 파생변수 생성(시점관련, 기상관련), Min-Max normalization
 - **모델링**:
   - `TimeSeriesSplit`을 사용해 Forward-looking Leakage 방지
@@ -68,6 +73,9 @@
  - XGBoost(건물별 분석): $SMAPE$ 7.97%
   
 한계/개선 방향:
- - 기상,시점 관련 파생변수에 비해 인문학적인 요인을 고려하지 못함
- - 시계열 이상치 처리 방안 
+ - 시계열 이상치 처리
+   <p align="center">
+       <img width="1489" height="790" alt="Image" src="https://github.com/user-attachments/assets/b609deda-3d8f-4c32-b335-c3e7a029b3f2" />
+       <sub><em>이상치가 뚜렷하게 드러나는 7번 건물의 데이터</em></sub>
+   </p>
  - XGBoost Prediction의 잔차에 시계열 모델링을 통한 자기상관성 반영
