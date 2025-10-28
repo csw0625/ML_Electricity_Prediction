@@ -27,8 +27,8 @@
   - 건물개요, 기상데이터, 시계열데이터 등 85일 분량의 train 데이터를 이용하여 8.24~8.31 각 건물별 전력사용량 예측
 
 <p align="center">
-    <img width="800" height="501" alt="Image" src="https://github.com/user-attachments/assets/5d80f153-ea9f-44a5-bd34-f2f3127fa5a1" />
-    <p align="center"><sub><em>전체 데이터 중 일부 그래프</em></sub></p>
+    <img width="700" height="401" alt="Image" src="https://github.com/user-attachments/assets/5d80f153-ea9f-44a5-bd34-f2f3127fa5a1" />
+    <p align="center"><sub><em>전체 건물 중 25개 건물에 대한 전력소비 시계열</em></sub></p>
 </p>
 
 ---
@@ -44,16 +44,16 @@
 </p>
   
 ### 2.2. 분석 Flow
-- **EDA**: 상관계수, ACF/PACF, time-series decomposition의 유효성 검증, 이상치 확인  
+- **EDA**: 상관계수, ACF/PACF, Time-series decomposition의 유효성 검증, 이상치 확인  
   => 주기성을 가지는 건물 전력 사용량 변화와 일간-주간 주기성 효과의 교호작용을 반영하기 위해 $u = \left( \cos\theta, \sin\theta \right),\space v = ( \cos\theta', \sin\theta' )$의 외적을 파생변수로 설정  
   <p align="center">
-      <img width="1931" height="855" alt="Image" src="https://github.com/user-attachments/assets/17118bde-d5c4-44df-8272-2651a978236f" />
+      <img width="800" height="355" alt="Image" src="https://github.com/user-attachments/assets/17118bde-d5c4-44df-8272-2651a978236f" /><br>
       <sub><em>일간 전력사용량 변화(좌), 주간 전력사용량 변화(우): 일간-주간 주기성 효과의 교호작용</em></sub>
   </p>
 - **전처리**: datetime type 변환, 파생변수 생성(시점관련, 기상관련), Min-Max normalization
 - **모델링**:
   - `TimeSeriesSplit`을 사용해 Forward-looking Leakage 방지
-  - 건물별 병렬처리를 사용한 Optuna Tuning with TPESampler로 최적 하이퍼파라미터 탐색
+  - 건물별 병렬처리 기반 `Optuna`로 최적 하이퍼파라미터 탐색
   - 건물 유형별로 분석: Time-series decomposition에 기반한 linear 모델에서 한계를 발견하고 앙상블 모델 채택
     1. RandomForest: 8.38%
     2. XGBoost: 22.56%
@@ -62,7 +62,7 @@
     2. XGBoost: 7.97%
   
 <p align="center">
-    <img width="1250" height="750" alt="Image" src="https://github.com/user-attachments/assets/31aaf7bf-25bf-42de-838f-a23f11218197" />
+    <img width="700" height="450" alt="Image" src="https://github.com/user-attachments/assets/31aaf7bf-25bf-42de-838f-a23f11218197" /><br>
     <sub><em>55번 건물의 train, val, test 데이터와 예측값(각 파랑, 노랑, 초록)</em></sub>
     <sub><em> - RandomForest</em></sub>
 </p>
@@ -70,12 +70,13 @@
 ---
 ## 3. 결론
 최종 모델:
- - XGBoost(건물별 분석): $SMAPE$ 7.97%
+ - **XGBoost(건물별 분석): 7.97%**
   
 한계/개선 방향:
  - 시계열 이상치 처리
    <p align="center">
-       <img width="1489" height="790" alt="Image" src="https://github.com/user-attachments/assets/b609deda-3d8f-4c32-b335-c3e7a029b3f2" />
+       <img width="700" height="250" alt="Image" src="https://github.com/user-attachments/assets/b609deda-3d8f-4c32-b335-c3e7a029b3f2" /><br>
        <sub><em>이상치가 뚜렷하게 드러나는 7번 건물의 데이터</em></sub>
    </p>
  - XGBoost Prediction의 잔차에 시계열 모델링을 통한 자기상관성 반영
+ - 인문학/사회과학적 파생변수 반영
