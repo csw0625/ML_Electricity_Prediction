@@ -45,6 +45,8 @@
     1. SVR: 9.30%
     2. XGBoost: 7.97%
 
+<img width="1990" height="1190" alt="Image" src="https://github.com/user-attachments/assets/31aaf7bf-25bf-42de-838f-a23f11218197" />
+
 ---
 ## 3. 결론
 최종 모델:
